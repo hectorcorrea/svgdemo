@@ -1,0 +1,56 @@
+<html>
+<header>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</header>
+<body>
+  <h1>Hello</h1>
+  <p>Some HTML text</p>
+  <canvas id="canvasElement" width="400" height="400">
+  </canvas>
+  <p>More <i>HTML</i> text <b>here</b></p>
+  <a id="canvasImgLink" href="#" download="theimage.png" target="_blank">download</a>
+</body>
+</html>
+
+
+<script>
+$(function() {
+
+  // Source: http://dinbror.dk/blog/how-to-download-an-inline-svg-as-jpg-or-png/
+  var canvas = document.getElementById("canvasElement");
+  var ctx = canvas.getContext("2d");
+  var svgImage = new Image();
+
+  svgImage.onload = function () {
+    // Draw the SVG image inside the canvas
+    ctx.drawImage(svgImage, 0, 0, 400, 400);
+
+    // Generate a binary version of the canvas
+    canvas.toBlob(function (blob) {
+      url = URL.createObjectURL(blob);
+      // Set the blob URL as the target of an HTML anchor tag
+      // so that when the user clicks on the link it downloads
+      // the PNG image!!!
+      var a = document.getElementById("canvasImgLink");
+      a.setAttribute("href", url);
+
+    }, "image/png", 1);
+  }
+
+  var svg = '' +
+  '<svg xmlns="http://www.w3.org/2000/svg" width="960" height="700">' +
+  '  <g transform="translate(100,100)">' +
+  '    <circle r="80" style="fill: rgb(31, 119, 180);"></circle>' +
+  '  </g>' +
+  '  <g transform="translate(150,100)">' +
+  '    <circle r="15" style="fill: rgb(174, 199, 232);"></circle>' +
+  '  </g>' +
+  '</svg>';
+  var svgRaw = "data:image/svg+xml," + encodeURIComponent(svg);
+  svgImage.src = svgRaw;
+
+  document.
+  return;
+
+});
+</script>
